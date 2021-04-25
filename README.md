@@ -1,27 +1,51 @@
-# ReduxTutorial
+# Redux Básico
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
+Es un patrón para el manejo de la información.
 
-## Development server
+Ideas principales:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Toda la data de la aplicación se encuentra en una estructura previamente definida
+- Toda la información se encontrará almacenada en un único lugar llamado `STORE`
+- El `STORE` jamas se modifica de forma directa
+- Interacciones de usuario y/o código, dispara acciones que describen qué sucedio.
+- El valor actual de la información de la aplicación se llama estado `STATE`
+- Un nuevo estado es creado, en base a la combinación del viejo estado y la acción por una función llamada `REDUCER`
+- `Accion` + `Viejo estado` => `Reducer` => `Nuevo estado`
 
-## Code scaffolding
+### Descripción ACTION - REDUCER - STATE - STORE
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### ACCION
 
-## Build
+- Es la única fuente de información que se envía por interacciones de usuario o programa.
+- Por lo general, se busca que las acciones sean lo más simple posible.
+- Una acción tiene únicamente 2 propiedades:
+  - `type` la acción o tarea a realizar `completar_tarea`
+  - `payload` es opcional, es la menor cantidad posible de información para realizar dicha tarea.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+#### REDUCER
 
-## Running unit tests
+- Es una función que únicamente recibe 2 argumentos.
+- Siempre retorna un estado
+- `Reducer (oldState, action)` => `Nuevo estado`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### STATE
 
-## Running end-to-end tests
+- El `state` es de sólo lectura.
+- Nunca se mutara el `state` de forma directa
+- Hay funciones prohibidas de javascript `push` , manipulación directa del objeto `oldState`
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+#### STORE
 
-## Further help
+Es un objeto que tiene las siguientes responsabilidades:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Contiene el estado de la aplicación.
+- Permite la lectura del estado via: `getState()`.
+- Permite crear un nuevo estado utilizando: `dispatch(ACTION)`
+- Permite notificar de cambios de estado via: `subscribe()`
+
+## Efectos
+
+- Escuchar acciones que son despachadas por el ngrx/store
+- Simplificar la lógica en los componentes
+- Comunicarse fuera del ecosistema de angular(Http, sockets o tareas asíncronas)
+- Efecto => servicio => Servidor
